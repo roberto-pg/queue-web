@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "types": ["vite/client"],
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@homepage": [
+        "src/pages/home_page"
+      ],
+      "@configuration-page": [
+        "src/pages/configuration_page"
+      ],
+      "@home": [
+        "src/components/home"
+      ],
+      "@configuration": [
+        "src/components/configuration"
+      ],
+      "@navbar": [
+        "src/components/navbar"
+      ],
+      "@color": [
+        "src/helpers/colors"
+      ],
+      "@api": [
+        "src/services/api"
+      ]
+    }
+  },
+  "include": [
+    "./src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+}
