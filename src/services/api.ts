@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { io } from 'socket.io-client'
-import { env } from 'src/config/env'
+import { env } from '@env'
 
 const api = axios.create({
   baseURL: env.HTTP_PORT

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { AddQueueIcon, MainContainer, StyledModal, StyledText, TextContainer, TextField, Title } from 'src/components/ModalAddQueue/styles'
+import { AddQueueIcon, MainContainer, StyledModal, StyledText, TextContainer, TextField, Title }
+  from './styles'
 import { color } from '@color'
 import { api } from '@api'
 

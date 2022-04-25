@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": ["vite/client"],
+    "types": [
+      "vite/client"
+    ],
     "useDefineForClassFields": true,
     "lib": [
       "DOM",
@@ -42,6 +44,12 @@
       ],
       "@api": [
         "src/services/api"
+      ],
+      "@modalAddQueue": [
+        "src/components/ModalAddQueue"
+      ],
+      "@env": [
+        "src/config/env"
       ]
     }
   },

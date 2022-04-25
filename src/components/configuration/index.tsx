@@ -1,9 +1,9 @@
-import { MainContent, QueueContainer, DescriptionContainer, TitleContainer, DescriptionText, RemoveIcon, IconContainer, TitleText, PriorityText, Content, ControlContainer, Button } from './styles'
 import { useState, useEffect } from 'react'
+import { ModalProvider } from 'styled-react-modal'
+import { MainContent, QueueContainer, DescriptionContainer, TitleContainer, DescriptionText, RemoveIcon, IconContainer, TitleText, PriorityText, Content, ControlContainer, Button } from './styles'
 import { api, socket } from '@api'
 import { ConfigurationNavBar } from '@navbar'
-import { ModalAddQueue } from 'src/components/ModalAddQueue'
-import { ModalProvider } from 'styled-react-modal'
+import { ModalAddQueue } from '@modalAddQueue'
 
 type QueueType = {
   id: string;
@@ -22,6 +22,14 @@ function Configuration() {
     })
   }, [])
 
+  async function removeQueue(id: string) {
+    try {
+      await api.delete(`delete/${id}`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <ModalProvider>
       <MainContent>
@@ -39,7 +47,7 @@ function Configuration() {
                   <PriorityText>{queue.priority} de prioridade</PriorityText>
                 </TitleContainer>
                 <IconContainer>
-                  <RemoveIcon />
+                  <RemoveIcon onClick={() => removeQueue(queue.id)} />
                 </IconContainer>
               </QueueContainer>
             )
