@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     min-height: 100vh;
   }
+  font {
+    color: '#ff5252';
+  }
 `
 
 export default GlobalStyle

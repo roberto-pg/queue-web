@@ -1,6 +1,6 @@
 import { color } from '@color'
 import styled from 'styled-components'
-import { Add, Remove } from 'styled-icons/material'
+import { Remove } from 'styled-icons/material'
 
 export const MainContent = styled.div`
   width: 100vw;
@@ -44,13 +44,6 @@ export const DescriptionText = styled.h1`
   color: ${color.textLight};
 `
 
-export const AddIcon = styled(Add)`
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  color: ${color.iconLight};
-`
-
 export const QueueContainer = styled.div`
   width: 20rem;
   height: 5rem;
@@ -58,7 +51,7 @@ export const QueueContainer = styled.div`
   display: flex;
   align-items: center;
   border-radius: 0.4rem 0.4rem 0.4rem 0.4rem; 
-  background-color: ${color.backgroundQueue};
+  background-color: ${color.backgroundModal};
 `
 
 export const TitleContainer = styled.div`
@@ -69,7 +62,7 @@ export const TitleContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   border-radius: 0.4rem 0 0 0.4rem; 
-  background-color: ${color.backgroundQueue};
+  background-color: ${color.backgroundModal};
 `
 
 export const TitleText = styled.h1`
@@ -95,7 +88,7 @@ export const IconContainer = styled.div`
   justify-content: end;
   padding: 0.5rem 0.5rem 0 0;
   border-radius: 0 0.4rem 0.4rem 0; 
-  background-color: ${color.backgroundQueue};
+  background-color: ${color.backgroundModal};
 `
 
 export const RemoveIcon = styled(Remove)`
