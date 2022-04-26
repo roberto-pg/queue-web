@@ -22,36 +22,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@homepage": [
-        "src/pages/home_page"
-      ],
-      "@configuration-page": [
-        "src/pages/configuration_page"
-      ],
-      "@home": [
-        "src/components/home"
-      ],
-      "@configuration": [
-        "src/components/configuration"
-      ],
-      "@navbar": [
-        "src/components/navbar"
-      ],
-      "@color": [
-        "src/helpers/colors"
-      ],
-      "@api": [
-        "src/services/api"
-      ],
-      "@modalAddQueue": [
-        "src/components/ModalAddQueue"
-      ],
-      "@env": [
-        "src/config/env"
+      "@/*": [
+        "*"
       ]
-    }
+    },
   },
   "include": [
     "./src"

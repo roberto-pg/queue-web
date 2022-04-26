@@ -1,4 +1,4 @@
-import { Configuration } from '@configuration'
+import { Configuration } from '@/components/configuration'
 
 export function ConfigurationPage() {
   return (

@@ -1,5 +1,5 @@
-import { ConfigurationPage } from '@configuration-page'
-import { HomePage } from '@homepage'
+import { ConfigurationPage } from '@/pages/configuration_page'
+import { HomePage } from '@/pages/home_page'
 import {
   BrowserRouter,
   Routes,

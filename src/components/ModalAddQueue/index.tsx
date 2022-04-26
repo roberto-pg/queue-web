@@ -1,9 +1,9 @@
+import { color } from '@/helpers/colors'
+import { api } from '@/services/api'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AddQueueIcon, MainContainer, StyledModal, StyledText, TextContainer, TextField, Title }
   from './styles'
-import { color } from '@color'
-import { api } from '@api'
 
 type FormInput = {
   title: string,

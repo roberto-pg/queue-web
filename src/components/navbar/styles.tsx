@@ -1,4 +1,4 @@
-import { color } from '@color'
+import { color } from '@/helpers/colors'
 import styled from 'styled-components'
 import { ArrowBack } from 'styled-icons/material'
 

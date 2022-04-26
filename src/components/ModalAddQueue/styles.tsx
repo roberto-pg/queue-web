@@ -1,7 +1,7 @@
 import Modal from 'styled-react-modal'
 import { Add } from 'styled-icons/material'
 import styled from 'styled-components'
-import { color } from '@color'
+import { color } from '@/helpers/colors'
 
 export const StyledModal = Modal.styled`
 width: 30rem;

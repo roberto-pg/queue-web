@@ -1,9 +1,9 @@
+import { ModalAddQueue } from '@/components/ModalAddQueue'
+import { ConfigurationNavBar } from '@/components/navbar'
 import { useState, useEffect } from 'react'
 import { ModalProvider } from 'styled-react-modal'
 import { MainContent, QueueContainer, DescriptionContainer, TitleContainer, DescriptionText, RemoveIcon, IconContainer, TitleText, PriorityText, Content, ControlContainer, Button } from './styles'
-import { api, socket } from '@api'
-import { ConfigurationNavBar } from '@navbar'
-import { ModalAddQueue } from '@modalAddQueue'
+import { api, socket } from '@/services/api'
 
 type QueueType = {
   id: string;

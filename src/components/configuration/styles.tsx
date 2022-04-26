@@ -1,4 +1,4 @@
-import { color } from '@color'
+import { color } from '@/helpers/colors'
 import styled from 'styled-components'
 import { Remove } from 'styled-icons/material'
 
@@ -19,7 +19,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${color.backgroundColor};
   overflow-y: scroll;
 
   ::-webkit-scrollbar {
