@@ -11,3 +11,14 @@ export function ConfigurationNavBar() {
     </NavBar>
   )
 }
+
+export function ReceptionNavBar() {
+  const navigate = useNavigate()
+
+  return (
+    <NavBar>
+      <Back onClick={() => navigate('/')} />
+      <ConfigTitle>Guichê 01</ConfigTitle>
+    </NavBar>
+  )
+}

@@ -6,9 +6,15 @@ function Home() {
 
   return (
     <HomeContent>
-      <HomeButton>Entrada</HomeButton>
-      <HomeButton>Salão</HomeButton>
-      <HomeButton>Guichê</HomeButton>
+      <HomeButton
+        onClick={() => navigate('/checkin')}
+      >Entrada</HomeButton>
+      <HomeButton
+        onClick={() => navigate('/hall')}
+      >Salão</HomeButton>
+      <HomeButton
+        onClick={() => navigate('/reception')}
+      >Guichê</HomeButton>
       <HomeButton
         onClick={() => navigate('/config')}
       >Configurações</HomeButton>

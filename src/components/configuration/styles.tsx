@@ -22,9 +22,8 @@ export const Content = styled.div`
   overflow-y: scroll;
 
   ::-webkit-scrollbar {
-display: none;
-}
-
+    display: none;
+  }
 `
 
 export const DescriptionContainer = styled.div`
@@ -49,7 +48,7 @@ export const QueueContainer = styled.div`
   margin: 1rem;
   display: flex;
   align-items: center;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem; 
+  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
   background-color: ${color.backgroundModal};
 `
 
@@ -60,7 +59,7 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  border-radius: 0.4rem 0 0 0.4rem; 
+  border-radius: 0.4rem 0 0 0.4rem;
   background-color: ${color.backgroundModal};
 `
 
@@ -86,7 +85,7 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: end;
   padding: 0.5rem 0.5rem 0 0;
-  border-radius: 0 0.4rem 0.4rem 0; 
+  border-radius: 0 0.4rem 0.4rem 0;
   background-color: ${color.backgroundModal};
 `
 

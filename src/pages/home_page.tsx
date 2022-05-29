@@ -1,7 +1,7 @@
 import { Home } from '@/components/home'
 
-export function HomePage() {
-  return (
-    <Home></Home>
-  )
+function HomePage() {
+  return <Home />
 }
+
+export { HomePage }

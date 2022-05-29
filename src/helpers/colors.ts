@@ -7,7 +7,10 @@ const color = {
   textLight: '#e1e1f6',
   redAccent: '#ff5252',
   white: '#ffffff',
-  blueColor: '#2d75ae'
+  blueColor: '#2d75ae',
+  red: '#ff0000',
+  green: '#008000',
+  blue: '#0000ff'
 }
 
 export { color }

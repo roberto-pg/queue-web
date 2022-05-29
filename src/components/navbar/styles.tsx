@@ -14,7 +14,7 @@ export const NavBar = styled.div`
 
 export const ConfigTitle = styled.h1`
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 0;
   color: ${color.textLight};
 `
