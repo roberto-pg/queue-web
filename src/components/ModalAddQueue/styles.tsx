@@ -30,7 +30,7 @@ export const AddQueueIcon = styled(Add)`
 `
 
 export const Title = styled.h1`
-width: 15rem;
+  width: 15rem;
   color: ${color.textLight};
   font-size: 1.2rem;
   font-weight: 700;
@@ -62,7 +62,7 @@ export const TextContainer = styled.div`
 export const StyledText = styled.button`
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${color.blueColor};
+  color: ${color.textLight};
   cursor: pointer;
   background-color: transparent;
   border: 0;

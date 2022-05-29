@@ -27,7 +27,7 @@ export const QueueContainer = styled.div`
   height: 8rem;
   margin: 1rem;
   display: flex;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+  border-radius: 0.4rem;
   background-color: ${color.backgroundModal};
   cursor: pointer;
   transition: 0.2s;

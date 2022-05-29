@@ -25,6 +25,10 @@ export const Left = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: transparent;
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const LeftContent = styled.div`
@@ -40,6 +44,10 @@ export const LeftContent = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const MiddleLeft = styled.div`
@@ -50,6 +58,10 @@ export const MiddleLeft = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: transparent;
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const MiddleLeftContent = styled.div`
@@ -65,6 +77,10 @@ export const MiddleLeftContent = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const MiddleRight = styled.div`
@@ -75,6 +91,10 @@ export const MiddleRight = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: transparent;
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const MiddleRightContent = styled.div`
@@ -89,6 +109,10 @@ export const MiddleRightContent = styled.div`
 
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 600px) {
+    width: 18vw;
   }
 `
 
@@ -105,6 +129,10 @@ export const RightContent = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 600px) {
+    width: 26vw;
+  }
 `
 
 export const TopContent = styled.div`
@@ -114,12 +142,20 @@ export const TopContent = styled.div`
   justify-content: center;
   align-items: center;
   background-color: transparent;
+
+  @media (max-width: 600px) {
+    width: 18vw;
+  }
 `
 
 export const TopText = styled.h1`
   font-size: 1.5rem;
   font-weight: 700;
   color: ${color.textLight};
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+  }
 `
 
 export const QueueContainer = styled.div`
@@ -129,7 +165,7 @@ export const QueueContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+  border-radius: 0.4rem;
   background-color: ${color.backgroundModal};
   cursor: pointer;
   transition: 0.2s;
@@ -146,7 +182,6 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 0.4rem 0 0 0.4rem;
   background-color: ${color.backgroundModal};
 `
 
@@ -164,7 +199,7 @@ export const ControlContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+  border-radius: 0.4rem;
   cursor: pointer;
   transition: 0.2s;
 

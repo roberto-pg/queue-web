@@ -13,13 +13,15 @@ export const HomeContent = styled.div`
 `
 
 export const HomeButton = styled.button`
-  width: 10rem;
-  height: 3rem;
+  width: 20rem;
+  height: 5rem;
   border: 0;
+  border-radius: 0.4rem;
   margin: 1rem;
   text-align: center;
-  font-size: 0.9375rem;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: ${color.textLight};
   cursor: pointer;
-  background-color: ${color.blueColor};
+  background-color: ${color.blue};
 `

@@ -48,7 +48,7 @@ export const QueueContainer = styled.div`
   margin: 1rem;
   display: flex;
   align-items: center;
-  border-radius: 0.4rem 0.4rem 0.4rem 0.4rem;
+  border-radius: 0.4rem;
   background-color: ${color.backgroundModal};
 `
 
@@ -113,7 +113,8 @@ export const Button = styled.button`
   margin-top: 1rem;
   text-align: center;
   font-size: 0.9375rem;
+  font-weight: 700;
   color: ${color.textLight};
   cursor: pointer;
-  background-color: ${color.backgroundButton};
+  background-color: ${color.blue};
 `

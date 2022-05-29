@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom'
-import { NavBar, ConfigTitle, Back } from './styles'
+import { ConfigNavBar, ReceptNavBar, ConfigTitle, Back } from './styles'
 
 export function ConfigurationNavBar() {
   const navigate = useNavigate()
 
   return (
-    <NavBar>
+    <ConfigNavBar>
       <Back onClick={() => navigate('/')} />
       <ConfigTitle>Configurações</ConfigTitle>
-    </NavBar>
+    </ConfigNavBar>
   )
 }
 
@@ -16,9 +16,9 @@ export function ReceptionNavBar() {
   const navigate = useNavigate()
 
   return (
-    <NavBar>
+    <ReceptNavBar>
       <Back onClick={() => navigate('/')} />
       <ConfigTitle>Guichê 01</ConfigTitle>
-    </NavBar>
+    </ReceptNavBar>
   )
 }
