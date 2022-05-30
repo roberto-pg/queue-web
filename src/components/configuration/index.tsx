@@ -1,6 +1,7 @@
 import { ModalAddQueue } from '@/components/ModalAddQueue'
 import { ConfigurationNavBar } from '@/components/navbar'
 import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 import { ModalProvider } from 'styled-react-modal'
 import {
   MainContent,
@@ -43,6 +44,15 @@ function Configuration() {
     }
   }
 
+  async function removeTickets() {
+    try {
+      await api.delete('/remove-tickets')
+      Cookies.remove('counterCookie')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <ModalProvider>
       <MainContent>
@@ -72,7 +82,7 @@ function Configuration() {
           <DescriptionText style={{ fontSize: '1rem' }}>
             CONTROLLE
           </DescriptionText>
-          <Button>Reiniciar filas</Button>
+          <Button onClick={() => removeTickets()}>Reiniciar filas</Button>
         </ControlContainer>
       </MainContent>
     </ModalProvider>
