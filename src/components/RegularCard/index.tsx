@@ -28,10 +28,13 @@ export function RegularCard(props: Queue) {
     (filtered) => filtered.title === 'Normal'
   )
   const regularQueue = filteredQueue[0]
+  const validTickets: TicketType[] = regularQueue?.tickets.filter(
+    (ticket: TicketType) => ticket.status === 'waiting'
+  )
 
   return (
     <>
-      {regularQueue?.tickets.map((ticket: TicketType) => {
+      {validTickets?.map((ticket: TicketType) => {
         const position = addLeadingZeros(String(ticket.position))
         const hour = new Date(ticket.timestamp)
         const hourString = hour.toLocaleTimeString()

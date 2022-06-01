@@ -28,10 +28,13 @@ export function PreferentialCard(props: Queue) {
     (filtered) => filtered.title === 'Preferencial'
   )
   const preferentialQueue = filteredQueue[0]
+  const validTickets: TicketType[] = preferentialQueue?.tickets.filter(
+    (ticket: TicketType) => ticket.status === 'waiting'
+  )
 
   return (
     <>
-      {preferentialQueue?.tickets.map((ticket: TicketType) => {
+      {validTickets?.map((ticket: TicketType) => {
         const position = addLeadingZeros(String(ticket.position))
         const hour = new Date(ticket.timestamp)
         const hourString = hour.toLocaleTimeString()

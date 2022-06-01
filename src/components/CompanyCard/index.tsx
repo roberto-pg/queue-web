@@ -28,10 +28,13 @@ export function CompanyCard(props: Queue) {
     (filtered) => filtered.title === 'Empresa'
   )
   const companyQueue = filteredQueue[0]
+  const validTickets: TicketType[] = companyQueue?.tickets.filter(
+    (ticket: TicketType) => ticket.status === 'waiting'
+  )
 
   return (
     <>
-      {companyQueue?.tickets.map((ticket: TicketType) => {
+      {validTickets?.map((ticket: TicketType) => {
         const position = addLeadingZeros(String(ticket.position))
         const hour = new Date(ticket.timestamp)
         const hourString = hour.toLocaleTimeString()
