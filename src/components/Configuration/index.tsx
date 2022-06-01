@@ -1,8 +1,9 @@
 import { ModalAddQueue } from '@/components/ModalAddQueue'
-import { ConfigurationNavBar } from '@/components/navbar'
+import { ConfigurationNavBar } from '@/components/NavBar'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { ModalProvider } from 'styled-react-modal'
+import { api, socket } from '@/services/api'
 import {
   MainContent,
   QueueContainer,
@@ -17,7 +18,6 @@ import {
   ControlContainer,
   Button
 } from './styles'
-import { api, socket } from '@/services/api'
 
 type QueueType = {
   id: string

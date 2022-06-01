@@ -1,4 +1,4 @@
-import { Reception } from '@/components/reception'
+import { Reception } from '@/components/Reception'
 
 function ReceptionPage() {
   return <Reception />

@@ -2,6 +2,7 @@ import { ModalProvider } from 'styled-react-modal'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { api, socket } from '@/services/api'
+import { addLeadingZeros } from '@/utils/leading-zeros'
 import {
   MainContent,
   Content,
@@ -50,7 +51,7 @@ function Checkin() {
 
     counterCookie = Cookies.get('counterCookie') ?? ''
 
-    const numberWithZero = ('0000' + counterCookie).slice(-4)
+    const numberWithZero = addLeadingZeros(counterCookie)
     setNumberInQueue(numberWithZero)
     setAbbreviatedTitle(abbreviation)
 

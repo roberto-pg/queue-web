@@ -1,4 +1,4 @@
-import { Checkin } from '@/components/checkin'
+import { Checkin } from '@/components/Checkin'
 
 function CheckinPage() {
   return <Checkin />

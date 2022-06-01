@@ -1,4 +1,4 @@
-import { Hall } from '@/components/hall'
+import { Hall } from '@/components/Hall'
 
 function HallPage() {
   return <Hall />
