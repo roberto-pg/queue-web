@@ -47,7 +47,9 @@ function Configuration() {
   async function removeTickets() {
     try {
       await api.delete('/remove-tickets')
-      Cookies.remove('counterCookie')
+      Cookies.remove('counterCookiePF')
+      Cookies.remove('counterCookieEP')
+      Cookies.remove('counterCookieNL')
     } catch (error) {
       console.log(error)
     }

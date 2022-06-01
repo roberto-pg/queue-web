@@ -40,16 +40,16 @@ function Checkin() {
   }
 
   async function handleTicketRegister(id: string, abbreviation: string) {
-    counterCookie = Cookies.get('counterCookie') ?? ''
+    counterCookie = Cookies.get(`counterCookie${abbreviation}`) ?? ''
 
     if (counterCookie === '') {
       counter = 1
-      Cookies.set('counterCookie', String(counter))
+      Cookies.set(`counterCookie${abbreviation}`, String(counter))
     } else {
-      counter = parseInt(Cookies.get('counterCookie') ?? '')
+      counter = parseInt(Cookies.get(`counterCookie${abbreviation}`) ?? '')
     }
 
-    counterCookie = Cookies.get('counterCookie') ?? ''
+    counterCookie = Cookies.get(`counterCookie${abbreviation}`) ?? ''
 
     const numberWithZero = addLeadingZeros(counterCookie)
     setNumberInQueue(numberWithZero)
@@ -69,7 +69,7 @@ function Checkin() {
 
     await api.post('/create-ticket', data)
     counter++
-    Cookies.set('counterCookie', String(counter))
+    Cookies.set(`counterCookie${abbreviation}`, String(counter))
 
     toggleModal()
   }
