@@ -40,6 +40,8 @@ export const LeftContent = styled.div`
   align-items: center;
   background-color: transparent;
   overflow-y: scroll;
+  visibility: ${(props) =>
+    props.className === 'visible' ? 'visible' : 'hidden'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -73,6 +75,8 @@ export const MiddleLeftContent = styled.div`
   align-items: center;
   background-color: transparent;
   overflow-y: scroll;
+  visibility: ${(props) =>
+    props.className === 'visible' ? 'visible' : 'hidden'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -106,6 +110,8 @@ export const MiddleRightContent = styled.div`
   align-items: center;
   background-color: transparent;
   overflow-y: scroll;
+  visibility: ${(props) =>
+    props.className === 'visible' ? 'visible' : 'hidden'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -158,7 +164,7 @@ export const TopText = styled.h1`
   }
 `
 
-export const QueueContainer = styled.div`
+export const CalledTicketContainer = styled.div`
   width: 15rem;
   height: 5rem;
   margin: 1rem;
@@ -167,6 +173,8 @@ export const QueueContainer = styled.div`
   justify-content: center;
   border-radius: 0.4rem;
   background-color: ${color.backgroundModal};
+  visibility: ${(props) =>
+    props.className === 'visible' ? 'visible' : 'hidden'};
   cursor: pointer;
   transition: 0.2s;
 

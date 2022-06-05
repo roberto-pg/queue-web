@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { color } from '@/helpers/colors'
+import { addLeadingZeros } from '@/utils'
 import { ReceptionNavBar } from '@/components/NavBar'
 import { PreferentialCard } from '@/components/PreferentialCard'
 import { CompanyCard } from '@/components/CompanyCard'
@@ -18,7 +19,7 @@ import {
   RightContent,
   TopContent,
   TopText,
-  QueueContainer,
+  CalledTicketContainer,
   TitleContainer,
   TitleText,
   ControlContainer,
@@ -64,10 +65,14 @@ function Reception() {
   const onlyTickets: TicketType[] = [].concat(...allTicketsIntheQueue)
 
   const lastCalledTicket = onlyTickets.filter(
-    (ticket) => ticket.status === 'called'
+    (ticket) =>
+      ticket.status === 'called' && ticket.service_desk === parseInt(numberDesk)
   )
 
-  console.log(lastCalledTicket)
+  const position = lastCalledTicket[0]?.position
+  const positionWithZeros = addLeadingZeros(String(position))
+  const hour = new Date(lastCalledTicket[0]?.timestamp)
+  const hourString = hour.toLocaleTimeString()
 
   return (
     <MainContent>
@@ -77,7 +82,7 @@ function Reception() {
           <TopContent>
             <TopText>Preferencial</TopText>
           </TopContent>
-          <LeftContent>
+          <LeftContent className={lastCalledTicket.length > 0 ? '' : 'visible'}>
             <PreferentialCard listQueues={queues} numberDesk={numberDesk} />
           </LeftContent>
         </Left>
@@ -85,7 +90,9 @@ function Reception() {
           <TopContent>
             <TopText>Empresa</TopText>
           </TopContent>
-          <MiddleLeftContent>
+          <MiddleLeftContent
+            className={lastCalledTicket.length > 0 ? '' : 'visible'}
+          >
             <CompanyCard listQueues={queues} numberDesk={numberDesk} />
           </MiddleLeftContent>
         </MiddleLeft>
@@ -93,17 +100,22 @@ function Reception() {
           <TopContent>
             <TopText>Normal</TopText>
           </TopContent>
-          <MiddleRightContent>
+          <MiddleRightContent
+            className={lastCalledTicket.length > 0 ? '' : 'visible'}
+          >
             <RegularCard listQueues={queues} numberDesk={numberDesk} />
           </MiddleRightContent>
         </MiddleRight>
         <RightContent>
-          <QueueContainer style={{ marginBottom: 100 }}>
+          <CalledTicketContainer
+            className={lastCalledTicket.length > 0 ? 'visible' : ''}
+            style={{ marginBottom: 100 }}
+          >
             <TitleContainer>
-              <TitleText>{lastCalledTicket[0]?.position}</TitleText>
-              <TitleText>{lastCalledTicket[0]?.timestamp}</TitleText>
+              <TitleText>{positionWithZeros}</TitleText>
+              <TitleText>{hourString}</TitleText>
             </TitleContainer>
-          </QueueContainer>
+          </CalledTicketContainer>
 
           <ControlContainer style={{ backgroundColor: `${color.blue}` }}>
             <ControlText>Chamar novamente</ControlText>
