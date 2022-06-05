@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import { ConfigNavBar, ReceptNavBar, ConfigTitle, Back } from './styles'
 
+type PropsNavigate = {
+  numberDesk: string
+}
+
 export function ConfigurationNavBar() {
   const navigate = useNavigate()
 
@@ -12,13 +16,14 @@ export function ConfigurationNavBar() {
   )
 }
 
-export function ReceptionNavBar() {
+export function ReceptionNavBar(props: PropsNavigate) {
+  const { numberDesk } = props
   const navigate = useNavigate()
 
   return (
     <ReceptNavBar>
       <Back onClick={() => navigate('/')} />
-      <ConfigTitle>Guichê 01</ConfigTitle>
+      <ConfigTitle>Guichê 0{numberDesk}</ConfigTitle>
     </ReceptNavBar>
   )
 }

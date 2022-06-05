@@ -1,5 +1,6 @@
 import { QueueContainer, TitleContainer, TitleText } from './styles'
 import { addLeadingZeros } from '@/utils'
+import { api } from '@/services/api'
 
 type TicketType = {
   id: string
@@ -19,10 +20,11 @@ type QueueType = {
 
 type Queue = {
   listQueues: QueueType[]
+  numberDesk: string
 }
 
 export function CompanyCard(props: Queue) {
-  const { listQueues } = props
+  const { listQueues, numberDesk } = props
 
   const filteredQueue = listQueues.filter(
     (filtered) => filtered.title === 'Empresa'
@@ -32,6 +34,15 @@ export function CompanyCard(props: Queue) {
     (ticket: TicketType) => ticket.status === 'waiting'
   )
 
+  async function updateTicketStatusAndDesk(id: string) {
+    const intNumberDesk = parseInt(numberDesk)
+    await api.patch('/update-service-desk', {
+      id,
+      serviceDesk: intNumberDesk
+    })
+    await api.patch('/update-status', { id, status: 'called' })
+  }
+
   return (
     <>
       {validTickets?.map((ticket: TicketType) => {
@@ -40,7 +51,10 @@ export function CompanyCard(props: Queue) {
         const hourString = hour.toLocaleTimeString()
 
         return (
-          <QueueContainer key={ticket.id}>
+          <QueueContainer
+            key={ticket.id}
+            onClick={() => updateTicketStatusAndDesk(ticket.id)}
+          >
             <TitleContainer>
               <TitleText>
                 {companyQueue?.abbreviation} - {position}

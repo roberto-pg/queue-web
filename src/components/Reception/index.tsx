@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { color } from '@/helpers/colors'
 import { ReceptionNavBar } from '@/components/NavBar'
 import { PreferentialCard } from '@/components/PreferentialCard'
@@ -24,6 +25,15 @@ import {
   ControlText
 } from './styles'
 
+type TicketType = {
+  id: string
+  position: number
+  timestamp: string
+  status: string
+  queue_id: string
+  service_desk: number
+}
+
 type QueueType = {
   id: string
   title: string
@@ -32,7 +42,13 @@ type QueueType = {
   tickets: []
 }
 
+type PropsNavigate = {
+  numberDesk: string
+}
+
 function Reception() {
+  const location = useLocation()
+  const { numberDesk } = location.state as PropsNavigate
   const [queues, setQueues] = useState<QueueType[]>([])
 
   useEffect(() => {
@@ -42,16 +58,27 @@ function Reception() {
     })
   }, [])
 
+  const allTicketsIntheQueue = queues.map((queue) => {
+    return queue.tickets
+  })
+  const onlyTickets: TicketType[] = [].concat(...allTicketsIntheQueue)
+
+  const lastCalledTicket = onlyTickets.filter(
+    (ticket) => ticket.status === 'called'
+  )
+
+  console.log(lastCalledTicket)
+
   return (
     <MainContent>
-      <ReceptionNavBar />
+      <ReceptionNavBar numberDesk={numberDesk} />
       <Content>
         <Left>
           <TopContent>
             <TopText>Preferencial</TopText>
           </TopContent>
           <LeftContent>
-            <PreferentialCard listQueues={queues} />
+            <PreferentialCard listQueues={queues} numberDesk={numberDesk} />
           </LeftContent>
         </Left>
         <MiddleLeft>
@@ -59,7 +86,7 @@ function Reception() {
             <TopText>Empresa</TopText>
           </TopContent>
           <MiddleLeftContent>
-            <CompanyCard listQueues={queues} />
+            <CompanyCard listQueues={queues} numberDesk={numberDesk} />
           </MiddleLeftContent>
         </MiddleLeft>
         <MiddleRight>
@@ -67,16 +94,17 @@ function Reception() {
             <TopText>Normal</TopText>
           </TopContent>
           <MiddleRightContent>
-            <RegularCard listQueues={queues} />
+            <RegularCard listQueues={queues} numberDesk={numberDesk} />
           </MiddleRightContent>
         </MiddleRight>
         <RightContent>
           <QueueContainer style={{ marginBottom: 100 }}>
             <TitleContainer>
-              <TitleText>NL - 0002</TitleText>
-              <TitleText>15:10:45</TitleText>
+              <TitleText>{lastCalledTicket[0]?.position}</TitleText>
+              <TitleText>{lastCalledTicket[0]?.timestamp}</TitleText>
             </TitleContainer>
           </QueueContainer>
+
           <ControlContainer style={{ backgroundColor: `${color.blue}` }}>
             <ControlText>Chamar novamente</ControlText>
           </ControlContainer>
