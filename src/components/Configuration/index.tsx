@@ -74,7 +74,12 @@ function Configuration() {
                   <PriorityText>{queue.priority} de prioridade</PriorityText>
                 </TitleContainer>
                 <IconContainer>
-                  <RemoveIcon onClick={() => removeQueue(queue.id)} />
+                  <RemoveIcon
+                    onClick={() =>
+                      window.confirm('Confirma a remoção da fila?') &&
+                      removeQueue(queue.id)
+                    }
+                  />
                 </IconContainer>
               </QueueContainer>
             )
@@ -84,7 +89,14 @@ function Configuration() {
           <DescriptionText style={{ fontSize: '1rem' }}>
             CONTROLLE
           </DescriptionText>
-          <Button onClick={() => removeTickets()}>Reiniciar filas</Button>
+          <Button
+            onClick={() =>
+              window.confirm('Confirma o reínicio das filas?') &&
+              removeTickets()
+            }
+          >
+            Reiniciar filas
+          </Button>
         </ControlContainer>
       </MainContent>
     </ModalProvider>

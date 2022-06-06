@@ -19,7 +19,7 @@ function Hall() {
         </TicketContainerCalled>
       </TopContent>
       <MiddleContent>
-        <TicketText style={{ fontSize: 30 }}>Senhas chamadas</TicketText>
+        <TicketText style={{ fontSize: 30 }}>Últimas chamadas</TicketText>
       </MiddleContent>
       <BottonContent>
         <ServicedTicketContainer>

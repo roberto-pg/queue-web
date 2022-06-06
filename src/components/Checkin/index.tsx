@@ -64,7 +64,8 @@ function Checkin() {
       queueId: id,
       position: parseInt(counterCookie),
       timestamp: now.toISOString(),
-      status: 'waiting'
+      status: 'waiting',
+      queueAbb: abbreviation
     }
 
     await api.post('/create-ticket', data)

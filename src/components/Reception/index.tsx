@@ -32,6 +32,7 @@ type TicketType = {
   timestamp: string
   status: string
   queue_id: string
+  queue_abb: string
   service_desk: number
 }
 
@@ -63,16 +64,24 @@ function Reception() {
     return queue.tickets
   })
   const onlyTickets: TicketType[] = [].concat(...allTicketsIntheQueue)
-
   const lastCalledTicket = onlyTickets.filter(
     (ticket) =>
       ticket.status === 'called' && ticket.service_desk === parseInt(numberDesk)
   )
 
+  const queueTitleAbbreviation = lastCalledTicket[0]?.queue_abb
   const position = lastCalledTicket[0]?.position
   const positionWithZeros = addLeadingZeros(String(position))
   const hour = new Date(lastCalledTicket[0]?.timestamp)
   const hourString = hour.toLocaleTimeString()
+
+  async function handleTicketAttended(id: string) {
+    await api.patch('/update-status', { id, status: 'finished' })
+  }
+
+  async function handleNotAnswered(id: string) {
+    await api.patch('/update-status', { id, status: 'notFound' })
+  }
 
   return (
     <MainContent>
@@ -112,7 +121,9 @@ function Reception() {
             style={{ marginBottom: 100 }}
           >
             <TitleContainer>
-              <TitleText>{positionWithZeros}</TitleText>
+              <TitleText>
+                {queueTitleAbbreviation} - {positionWithZeros}
+              </TitleText>
               <TitleText>{hourString}</TitleText>
             </TitleContainer>
           </CalledTicketContainer>
@@ -120,10 +131,14 @@ function Reception() {
           <ControlContainer style={{ backgroundColor: `${color.blue}` }}>
             <ControlText>Chamar novamente</ControlText>
           </ControlContainer>
-          <ControlContainer style={{ backgroundColor: `${color.red}` }}>
-            <ControlText>Não atendido</ControlText>
+          <ControlContainer
+            onClick={() => handleNotAnswered(lastCalledTicket[0]?.id)}
+            style={{ backgroundColor: `${color.red}` }}
+          >
+            <ControlText>Não respondeu</ControlText>
           </ControlContainer>
           <ControlContainer
+            onClick={() => handleTicketAttended(lastCalledTicket[0]?.id)}
             style={{ marginBottom: 50, backgroundColor: `${color.green}` }}
           >
             <ControlText>Atendido</ControlText>
