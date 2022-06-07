@@ -40,7 +40,7 @@ export function PreferentialCard(props: Queue) {
       id,
       serviceDesk: intNumberDesk
     })
-    await api.patch('/update-status', { id, status: 'called' })
+    await api.patch('/update-status', { id, status: 'beingAttended' })
   }
 
   return (

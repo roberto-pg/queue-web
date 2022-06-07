@@ -66,7 +66,10 @@ function Reception() {
   const onlyTickets: TicketType[] = [].concat(...allTicketsIntheQueue)
   const lastCalledTicket = onlyTickets.filter(
     (ticket) =>
-      ticket.status === 'called' && ticket.service_desk === parseInt(numberDesk)
+      (ticket.status === 'called' &&
+        ticket.service_desk === parseInt(numberDesk)) ||
+      (ticket.status === 'beingAttended' &&
+        ticket.service_desk === parseInt(numberDesk))
   )
 
   const queueTitleAbbreviation = lastCalledTicket[0]?.queue_abb
