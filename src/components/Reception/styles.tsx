@@ -41,7 +41,7 @@ export const LeftContent = styled.div`
   background-color: transparent;
   overflow-y: scroll;
   visibility: ${(props) =>
-    props.className === 'visible' ? 'visible' : 'hidden'};
+    props.className === 'hidden' ? 'hidden' : 'visible'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -76,7 +76,7 @@ export const MiddleLeftContent = styled.div`
   background-color: transparent;
   overflow-y: scroll;
   visibility: ${(props) =>
-    props.className === 'visible' ? 'visible' : 'hidden'};
+    props.className === 'hidden' ? 'hidden' : 'visible'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -111,7 +111,7 @@ export const MiddleRightContent = styled.div`
   background-color: transparent;
   overflow-y: scroll;
   visibility: ${(props) =>
-    props.className === 'visible' ? 'visible' : 'hidden'};
+    props.className === 'hidden' ? 'hidden' : 'visible'};
 
   ::-webkit-scrollbar {
     display: none;
@@ -172,7 +172,7 @@ export const CalledTicketContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 0.4rem;
-  background-color: ${color.backgroundModal};
+  background-color: ${color.red};
   visibility: ${(props) =>
     props.className === 'visible' ? 'visible' : 'hidden'};
   cursor: pointer;
@@ -190,7 +190,7 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${color.backgroundModal};
+  background-color: transparent;
 `
 
 export const TitleText = styled.h1`

@@ -9,7 +9,10 @@ export const QueueContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 0.4rem;
-  background-color: ${color.backgroundModal};
+  background-color: ${(props) =>
+    props.className === 'ticketCalled'
+      ? `${color.red}`
+      : `${color.backgroundModal}`};
   cursor: pointer;
   transition: 0.2s;
 
@@ -25,7 +28,7 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${color.backgroundModal};
+  background-color: transparent;
 `
 
 export const TitleText = styled.h1`

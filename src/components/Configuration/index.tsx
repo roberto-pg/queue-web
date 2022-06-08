@@ -49,7 +49,8 @@ function Configuration() {
       await api.delete('/remove-tickets')
       Cookies.remove('counterCookiePF')
       Cookies.remove('counterCookieEP')
-      Cookies.remove('counterCookieNL')
+      Cookies.remove('counterCookieNO')
+      Cookies.remove('counterSequenceCookie')
     } catch (error) {
       console.log(error)
     }

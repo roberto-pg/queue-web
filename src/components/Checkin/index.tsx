@@ -36,7 +36,7 @@ function Checkin() {
   function aftertTest() {
     setTimeout(() => {
       setIsOpen(!isOpen)
-    }, 3000)
+    }, 1000)
   }
 
   async function handleTicketRegister(id: string, abbreviation: string) {

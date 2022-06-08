@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { color } from '@/helpers/colors'
 import { addLeadingZeros } from '@/utils'
 import { ReceptionNavBar } from '@/components/NavBar'
@@ -36,6 +37,17 @@ type TicketType = {
   service_desk: number
 }
 
+type TicketSequenceType = {
+  id: string
+  position: number
+  timestamp: string
+  status: string
+  queueId: string
+  queueAbb: string
+  serviceDesk: number
+  callSequence: number
+}
+
 type QueueType = {
   id: string
   title: string
@@ -52,11 +64,18 @@ function Reception() {
   const location = useLocation()
   const { numberDesk } = location.state as PropsNavigate
   const [queues, setQueues] = useState<QueueType[]>([])
+  const [tickets, setTickets] = useState<TicketSequenceType[]>([])
+  let counter: number
+  let counterSequenceCookie: string
 
   useEffect(() => {
     api.get('/queues')
-    socket.on('load_queues', (list: QueueType[]) => {
-      return setQueues(list)
+    api.get('/tickets')
+    socket.on('load_queues', (listQueues: QueueType[]) => {
+      return setQueues(listQueues)
+    })
+    socket.on('load_tickets', (listTickets: TicketSequenceType[]) => {
+      return setTickets(listTickets)
     })
   }, [])
 
@@ -71,6 +90,11 @@ function Reception() {
       (ticket.status === 'beingAttended' &&
         ticket.service_desk === parseInt(numberDesk))
   )
+  const beingAttendedTicket = onlyTickets.filter(
+    (ticket) =>
+      ticket.status === 'beingAttended' &&
+      ticket.service_desk === parseInt(numberDesk)
+  )
 
   const queueTitleAbbreviation = lastCalledTicket[0]?.queue_abb
   const position = lastCalledTicket[0]?.position
@@ -78,12 +102,49 @@ function Reception() {
   const hour = new Date(lastCalledTicket[0]?.timestamp)
   const hourString = hour.toLocaleTimeString()
 
+  async function handleTicketBeingAttended(id: string) {
+    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
+
+    if (counterSequenceCookie === '') {
+      counter = 1
+      Cookies.set('counterSequenceCookie', String(counter))
+    } else {
+      counter = parseInt(Cookies.get('counterSequenceCookie') ?? '')
+    }
+
+    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
+
+    await api.patch('/update-status', { id, status: 'beingAttended' })
+    await api.patch('/update-call-sequence', {
+      id,
+      callSequence: parseInt(counterSequenceCookie)
+    })
+    counter++
+    Cookies.set('counterSequenceCookie', String(counter))
+  }
+
   async function handleTicketAttended(id: string) {
     await api.patch('/update-status', { id, status: 'finished' })
   }
 
   async function handleNotAnswered(id: string) {
+    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
+
+    if (counterSequenceCookie === '') {
+      counter = 1
+      Cookies.set('counterSequenceCookie', String(counter))
+    } else {
+      counter = parseInt(Cookies.get('counterSequenceCookie') ?? '')
+    }
+
+    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
     await api.patch('/update-status', { id, status: 'notFound' })
+    await api.patch('/update-call-sequence', {
+      id,
+      callSequence: parseInt(counterSequenceCookie)
+    })
+    counter++
+    Cookies.set('counterSequenceCookie', String(counter))
   }
 
   return (
@@ -94,8 +155,14 @@ function Reception() {
           <TopContent>
             <TopText>Preferencial</TopText>
           </TopContent>
-          <LeftContent className={lastCalledTicket.length > 0 ? '' : 'visible'}>
-            <PreferentialCard listQueues={queues} numberDesk={numberDesk} />
+          <LeftContent
+            className={beingAttendedTicket.length > 0 ? 'hidden' : ''}
+          >
+            <PreferentialCard
+              listQueues={queues}
+              listTickets={tickets}
+              numberDesk={numberDesk}
+            />
           </LeftContent>
         </Left>
         <MiddleLeft>
@@ -103,9 +170,13 @@ function Reception() {
             <TopText>Empresa</TopText>
           </TopContent>
           <MiddleLeftContent
-            className={lastCalledTicket.length > 0 ? '' : 'visible'}
+            className={beingAttendedTicket.length > 0 ? 'hidden' : ''}
           >
-            <CompanyCard listQueues={queues} numberDesk={numberDesk} />
+            <CompanyCard
+              listQueues={queues}
+              listTickets={tickets}
+              numberDesk={numberDesk}
+            />
           </MiddleLeftContent>
         </MiddleLeft>
         <MiddleRight>
@@ -113,9 +184,13 @@ function Reception() {
             <TopText>Normal</TopText>
           </TopContent>
           <MiddleRightContent
-            className={lastCalledTicket.length > 0 ? '' : 'visible'}
+            className={beingAttendedTicket.length > 0 ? 'hidden' : ''}
           >
-            <RegularCard listQueues={queues} numberDesk={numberDesk} />
+            <RegularCard
+              listQueues={queues}
+              listTickets={tickets}
+              numberDesk={numberDesk}
+            />
           </MiddleRightContent>
         </MiddleRight>
         <RightContent>
@@ -131,8 +206,11 @@ function Reception() {
             </TitleContainer>
           </CalledTicketContainer>
 
-          <ControlContainer style={{ backgroundColor: `${color.blue}` }}>
-            <ControlText>Chamar novamente</ControlText>
+          <ControlContainer
+            onClick={() => handleTicketBeingAttended(lastCalledTicket[0]?.id)}
+            style={{ backgroundColor: `${color.blue}` }}
+          >
+            <ControlText>Em atendimento</ControlText>
           </ControlContainer>
           <ControlContainer
             onClick={() => handleNotAnswered(lastCalledTicket[0]?.id)}

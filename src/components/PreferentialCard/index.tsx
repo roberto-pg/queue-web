@@ -8,6 +8,18 @@ type TicketType = {
   timestamp: string
   status: string
   queue_id: string
+  service_desk: number
+}
+
+type TicketSequenceType = {
+  id: string
+  position: number
+  timestamp: string
+  status: string
+  queueId: string
+  queueAbb: string
+  serviceDesk: number
+  callSequence: number
 }
 
 type QueueType = {
@@ -20,18 +32,25 @@ type QueueType = {
 
 type Queue = {
   listQueues: QueueType[]
+  listTickets: TicketSequenceType[]
   numberDesk: string
 }
 
 export function PreferentialCard(props: Queue) {
-  const { listQueues, numberDesk } = props
+  const { listQueues, listTickets, numberDesk } = props
 
   const filteredQueue = listQueues.filter(
     (filtered) => filtered.title === 'Preferencial'
   )
   const preferentialQueue = filteredQueue[0]
   const validTickets: TicketType[] = preferentialQueue?.tickets.filter(
-    (ticket: TicketType) => ticket.status === 'waiting'
+    (ticket: TicketType) =>
+      ticket.status === 'waiting' ||
+      (ticket.status === 'called' &&
+        ticket.service_desk === parseInt(numberDesk))
+  )
+  const calledTickets = listTickets?.filter(
+    (ticket) => ticket.status === 'called'
   )
 
   async function updateTicketStatusAndDesk(id: string) {
@@ -40,7 +59,11 @@ export function PreferentialCard(props: Queue) {
       id,
       serviceDesk: intNumberDesk
     })
-    await api.patch('/update-status', { id, status: 'beingAttended' })
+    if (calledTickets?.length >= 1) {
+      window.alert('Aguarde...')
+    } else {
+      await api.patch('/update-status', { id, status: 'called' })
+    }
   }
 
   return (
@@ -54,6 +77,7 @@ export function PreferentialCard(props: Queue) {
           <QueueContainer
             key={ticket.id}
             onClick={() => updateTicketStatusAndDesk(ticket.id)}
+            className={ticket.status === 'called' ? 'ticketCalled' : ''}
           >
             <TitleContainer>
               <TitleText>
