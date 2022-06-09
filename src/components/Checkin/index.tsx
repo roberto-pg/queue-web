@@ -12,13 +12,7 @@ import {
   ModalContainer,
   ModalText
 } from './styles'
-
-type QueueType = {
-  id: string
-  title: string
-  abbreviation: string
-  priority: number
-}
+import { QueueType } from '@/helpers/types'
 
 function Checkin() {
   const [queues, setQueues] = useState<QueueType[]>([])

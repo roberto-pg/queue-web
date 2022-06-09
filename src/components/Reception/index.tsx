@@ -26,35 +26,7 @@ import {
   ControlContainer,
   ControlText
 } from './styles'
-
-type TicketType = {
-  id: string
-  position: number
-  timestamp: string
-  status: string
-  queue_id: string
-  queue_abb: string
-  service_desk: number
-}
-
-type TicketSequenceType = {
-  id: string
-  position: number
-  timestamp: string
-  status: string
-  queueId: string
-  queueAbb: string
-  serviceDesk: number
-  callSequence: number
-}
-
-type QueueType = {
-  id: string
-  title: string
-  abbreviation: string
-  priority: number
-  tickets: []
-}
+import { QueueTicketType, QueueType, TicketType } from '@/helpers/types'
 
 type PropsNavigate = {
   numberDesk: string
@@ -64,7 +36,7 @@ function Reception() {
   const location = useLocation()
   const { numberDesk } = location.state as PropsNavigate
   const [queues, setQueues] = useState<QueueType[]>([])
-  const [tickets, setTickets] = useState<TicketSequenceType[]>([])
+  const [tickets, setTickets] = useState<TicketType[]>([])
   let counter: number
   let counterSequenceCookie: string
 
@@ -74,7 +46,7 @@ function Reception() {
     socket.on('load_queues', (listQueues: QueueType[]) => {
       return setQueues(listQueues)
     })
-    socket.on('load_tickets', (listTickets: TicketSequenceType[]) => {
+    socket.on('load_tickets', (listTickets: TicketType[]) => {
       return setTickets(listTickets)
     })
   }, [])
@@ -82,7 +54,7 @@ function Reception() {
   const allTicketsIntheQueue = queues.map((queue) => {
     return queue.tickets
   })
-  const onlyTickets: TicketType[] = [].concat(...allTicketsIntheQueue)
+  const onlyTickets: QueueTicketType[] = [].concat(...allTicketsIntheQueue)
   const lastCalledTicket = onlyTickets.filter(
     (ticket) =>
       (ticket.status === 'called' &&
@@ -124,7 +96,15 @@ function Reception() {
   }
 
   async function handleTicketAttended(id: string) {
-    await api.patch('/update-status', { id, status: 'finished' })
+    const ticketCalled = tickets.filter(
+      (ticket) => ticket.status === 'called' && ticket.id === id
+    )
+
+    if (ticketCalled.length > 0) {
+      window.alert('Operação não permitida')
+    } else {
+      await api.patch('/update-status', { id, status: 'finished' })
+    }
   }
 
   async function handleNotAnswered(id: string) {

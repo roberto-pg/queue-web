@@ -1,38 +1,11 @@
 import { QueueContainer, TitleContainer, TitleText } from './styles'
 import { addLeadingZeros } from '@/utils'
 import { api } from '@/services/api'
-
-type TicketType = {
-  id: string
-  position: number
-  timestamp: string
-  status: string
-  queue_id: string
-  service_desk: number
-}
-
-type TicketSequenceType = {
-  id: string
-  position: number
-  timestamp: string
-  status: string
-  queueId: string
-  queueAbb: string
-  serviceDesk: number
-  callSequence: number
-}
-
-type QueueType = {
-  id: string
-  title: string
-  abbreviation: string
-  priority: number
-  tickets: []
-}
+import { QueueTicketType, QueueType, TicketType } from '@/helpers/types'
 
 type Queue = {
   listQueues: QueueType[]
-  listTickets: TicketSequenceType[]
+  listTickets: TicketType[]
   numberDesk: string
 }
 
@@ -43,8 +16,8 @@ export function CompanyCard(props: Queue) {
     (filtered) => filtered.title === 'Empresa'
   )
   const companyQueue = filteredQueue[0]
-  const validTickets: TicketType[] = companyQueue?.tickets.filter(
-    (ticket: TicketType) =>
+  const validTickets: QueueTicketType[] = companyQueue?.tickets.filter(
+    (ticket: QueueTicketType) =>
       ticket.status === 'waiting' ||
       (ticket.status === 'called' &&
         ticket.service_desk === parseInt(numberDesk))
@@ -52,6 +25,7 @@ export function CompanyCard(props: Queue) {
   const calledTickets = listTickets?.filter(
     (ticket) => ticket.status === 'called'
   )
+  const blocked = calledTickets[0]?.serviceDesk
 
   async function updateTicketStatusAndDesk(id: string) {
     const intNumberDesk = parseInt(numberDesk)
@@ -60,7 +34,7 @@ export function CompanyCard(props: Queue) {
       serviceDesk: intNumberDesk
     })
     if (calledTickets?.length >= 1) {
-      window.alert('Aguarde...')
+      window.alert(`Aguarde o guichê 0${blocked}`)
     } else {
       await api.patch('/update-status', { id, status: 'called' })
     }
@@ -68,7 +42,7 @@ export function CompanyCard(props: Queue) {
 
   return (
     <>
-      {validTickets?.map((ticket: TicketType) => {
+      {validTickets?.map((ticket: QueueTicketType) => {
         const position = addLeadingZeros(String(ticket.position))
         const hour = new Date(ticket.timestamp)
         const hourString = hour.toLocaleTimeString()

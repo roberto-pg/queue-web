@@ -18,13 +18,7 @@ import {
   ControlContainer,
   Button
 } from './styles'
-
-type QueueType = {
-  id: string
-  title: string
-  abbreviation: string
-  priority: number
-}
+import { QueueType } from '@/helpers/types'
 
 function Configuration() {
   const [queues, setQueues] = useState<QueueType[]>([])

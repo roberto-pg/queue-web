@@ -10,16 +10,7 @@ import {
   BottonContent,
   ServicedTicketContainer
 } from './styles'
-
-type TicketType = {
-  id: string
-  position: number
-  timestamp: string
-  status: string
-  queueId: string
-  queueAbb: string
-  serviceDesk: number
-}
+import { TicketType } from '@/helpers/types'
 
 function Hall() {
   const [tickets, setTickets] = useState<TicketType[]>([])
