@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { ModalProvider } from 'styled-react-modal'
 import { api, socket } from '@/services/api'
+import { QueueType } from '@/helpers'
 import {
   MainContent,
   QueueContainer,
@@ -18,7 +19,6 @@ import {
   ControlContainer,
   Button
 } from './styles'
-import { QueueType } from '@/helpers/types'
 
 function Configuration() {
   const [queues, setQueues] = useState<QueueType[]>([])

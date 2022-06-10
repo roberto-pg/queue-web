@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { color } from '@/helpers/colors'
+import { color } from '@/helpers'
 
 export const MainContent = styled.div`
   width: 100vw;
@@ -30,7 +30,7 @@ export const MiddleContent = styled.div`
   background-color: transparent;
 `
 
-export const TicketContainerCalled = styled.div`
+export const CalledTicketContainer = styled.div`
   width: 30rem;
   height: 20rem;
   border-radius: 0.5rem;
@@ -62,7 +62,7 @@ export const BottonContent = styled.div`
   }
 `
 
-export const ServicedTicketContainer = styled.div`
+export const FinishedTicketContainer = styled.div`
   width: 12rem;
   height: 8rem;
   border-radius: 0.5rem;

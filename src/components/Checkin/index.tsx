@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { api, socket } from '@/services/api'
 import { addLeadingZeros } from '@/utils/leading-zeros'
+import { QueueType } from '@/helpers'
 import {
   MainContent,
   Content,
@@ -12,9 +13,8 @@ import {
   ModalContainer,
   ModalText
 } from './styles'
-import { QueueType } from '@/helpers/types'
 
-function Checkin() {
+export function Checkin() {
   const [queues, setQueues] = useState<QueueType[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [numberInQueue, setNumberInQueue] = useState('')
@@ -107,5 +107,3 @@ function Checkin() {
     </ModalProvider>
   )
 }
-
-export { Checkin }

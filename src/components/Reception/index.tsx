@@ -1,32 +1,38 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import { color } from '@/helpers/colors'
-import { addLeadingZeros } from '@/utils'
+import { CompanyCard } from '@/components/CompanyCard'
 import { ReceptionNavBar } from '@/components/NavBar'
 import { PreferentialCard } from '@/components/PreferentialCard'
-import { CompanyCard } from '@/components/CompanyCard'
 import { RegularCard } from '@/components/RegularCard'
+import { color } from '@/helpers/colors'
 import { api, socket } from '@/services/api'
+import { addLeadingZeros } from '@/utils'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
-  MainContent,
+  handleServiceBeginning,
+  handleServiceFinished,
+  handleUnansweredCall,
+  QueueTicketType,
+  QueueType,
+  TicketType
+} from '@/helpers'
+import {
+  CalledTicketContainer,
   Content,
+  ControlContainer,
+  ControlText,
   Left,
   LeftContent,
+  MainContent,
   MiddleLeft,
   MiddleLeftContent,
   MiddleRight,
   MiddleRightContent,
   RightContent,
-  TopContent,
-  TopText,
-  CalledTicketContainer,
   TitleContainer,
   TitleText,
-  ControlContainer,
-  ControlText
+  TopContent,
+  TopText
 } from './styles'
-import { QueueTicketType, QueueType, TicketType } from '@/helpers/types'
 
 type PropsNavigate = {
   numberDesk: string
@@ -37,8 +43,6 @@ function Reception() {
   const { numberDesk } = location.state as PropsNavigate
   const [queues, setQueues] = useState<QueueType[]>([])
   const [tickets, setTickets] = useState<TicketType[]>([])
-  let counter: number
-  let counterSequenceCookie: string
 
   useEffect(() => {
     api.get('/queues')
@@ -73,59 +77,6 @@ function Reception() {
   const positionWithZeros = addLeadingZeros(String(position))
   const hour = new Date(lastCalledTicket[0]?.timestamp)
   const hourString = hour.toLocaleTimeString()
-
-  async function handleTicketBeingAttended(id: string) {
-    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
-
-    if (counterSequenceCookie === '') {
-      counter = 1
-      Cookies.set('counterSequenceCookie', String(counter))
-    } else {
-      counter = parseInt(Cookies.get('counterSequenceCookie') ?? '')
-    }
-
-    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
-
-    await api.patch('/update-status', { id, status: 'beingAttended' })
-    await api.patch('/update-call-sequence', {
-      id,
-      callSequence: parseInt(counterSequenceCookie)
-    })
-    counter++
-    Cookies.set('counterSequenceCookie', String(counter))
-  }
-
-  async function handleTicketAttended(id: string) {
-    const ticketCalled = tickets.filter(
-      (ticket) => ticket.status === 'called' && ticket.id === id
-    )
-
-    if (ticketCalled.length > 0) {
-      window.alert('Operação não permitida')
-    } else {
-      await api.patch('/update-status', { id, status: 'finished' })
-    }
-  }
-
-  async function handleNotAnswered(id: string) {
-    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
-
-    if (counterSequenceCookie === '') {
-      counter = 1
-      Cookies.set('counterSequenceCookie', String(counter))
-    } else {
-      counter = parseInt(Cookies.get('counterSequenceCookie') ?? '')
-    }
-
-    counterSequenceCookie = Cookies.get('counterSequenceCookie') ?? ''
-    await api.patch('/update-status', { id, status: 'notFound' })
-    await api.patch('/update-call-sequence', {
-      id,
-      callSequence: parseInt(counterSequenceCookie)
-    })
-    counter++
-    Cookies.set('counterSequenceCookie', String(counter))
-  }
 
   return (
     <MainContent>
@@ -187,19 +138,19 @@ function Reception() {
           </CalledTicketContainer>
 
           <ControlContainer
-            onClick={() => handleTicketBeingAttended(lastCalledTicket[0]?.id)}
+            onClick={() => handleServiceBeginning(lastCalledTicket[0]?.id)}
             style={{ backgroundColor: `${color.blue}` }}
           >
-            <ControlText>Em atendimento</ControlText>
+            <ControlText>Iniciar atendimento</ControlText>
           </ControlContainer>
           <ControlContainer
-            onClick={() => handleNotAnswered(lastCalledTicket[0]?.id)}
+            onClick={() => handleUnansweredCall(lastCalledTicket[0]?.id)}
             style={{ backgroundColor: `${color.red}` }}
           >
             <ControlText>Não respondeu</ControlText>
           </ControlContainer>
           <ControlContainer
-            onClick={() => handleTicketAttended(lastCalledTicket[0]?.id)}
+            onClick={() => handleServiceFinished(lastCalledTicket[0]?.id)}
             style={{ marginBottom: 50, backgroundColor: `${color.green}` }}
           >
             <ControlText>Atendido</ControlText>

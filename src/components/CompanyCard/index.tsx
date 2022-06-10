@@ -1,7 +1,7 @@
 import { QueueContainer, TitleContainer, TitleText } from './styles'
 import { addLeadingZeros } from '@/utils'
 import { api } from '@/services/api'
-import { QueueTicketType, QueueType, TicketType } from '@/helpers/types'
+import { QueueTicketType, QueueType, TicketType } from '@/helpers'
 
 type Queue = {
   listQueues: QueueType[]
@@ -29,13 +29,14 @@ export function CompanyCard(props: Queue) {
 
   async function updateTicketStatusAndDesk(id: string) {
     const intNumberDesk = parseInt(numberDesk)
-    await api.patch('/update-service-desk', {
-      id,
-      serviceDesk: intNumberDesk
-    })
+
     if (calledTickets?.length >= 1) {
       window.alert(`Aguarde o guichê 0${blocked}`)
     } else {
+      await api.patch('/update-service-desk', {
+        id,
+        serviceDesk: intNumberDesk
+      })
       await api.patch('/update-status', { id, status: 'called' })
     }
   }

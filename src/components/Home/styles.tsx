@@ -1,4 +1,4 @@
-import { color } from '@/helpers/colors'
+import { color } from '@/helpers'
 import styled from 'styled-components'
 import Modal from 'styled-react-modal'
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { color } from '@/helpers/colors'
+import { color } from '@/helpers'
 
 export const MainContent = styled.div`
   width: 100vw;

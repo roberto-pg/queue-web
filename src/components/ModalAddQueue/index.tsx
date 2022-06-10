@@ -1,4 +1,4 @@
-import { color } from '@/helpers/colors'
+import { color } from '@/helpers'
 import { api } from '@/services/api'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
